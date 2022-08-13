@@ -9686,16 +9686,21 @@ function removeImageLoadingAnimation(image) {
   }
 }
 
-document.getElementById('currency-button').addEventListener('click', () => {
+const getDkkToUsdConversionRate = async () => {
+  const result = await fetch(' https://v6.exchangerate-api.com/v6/9ebc166499de8a6cb74eaaf6/latest/DKK');
+  const resultJson = await result.json();
+  return resultJson.conversion_rates['USD'];
+}
+
+document.getElementById('currency-button').addEventListener('click', async () => {
   const priceElements = document.getElementsByClassName("price-item price-item--regular");
 
-  // TODO: get currency from API
-  const currency = 0.14;
+  const dkkToUsdConversionRate = await getDkkToUsdConversionRate();
 
   for (const element of priceElements) {    
     const text = element.innerHTML;
     const price = text.split('DKK');
-    const convertedPrice = parseInt(price[0]) * currency;
+    const convertedPrice = parseInt(price[0]) * dkkToUsdConversionRate;
     element.innerHTML = `${convertedPrice} USD`;
   }
   
