@@ -9692,13 +9692,13 @@ document.getElementById('currency-button').addEventListener('click', () => {
   // TODO: get currency from API
   const currency = 0.14;
 
-  // TODO: change all elements
-  const firstElement = priceElements[0];
-  const text = firstElement.innerHTML;
-  const price = text.split('DKK');
-  const convertedPrice = parseInt(price[0]) * currency;
-  firstElement.innerHTML = `${convertedPrice} USD`;
-
+  for (const element of priceElements) {    
+    const text = element.innerHTML;
+    const price = text.split('DKK');
+    const convertedPrice = parseInt(price[0]) * currency;
+    element.innerHTML = `${convertedPrice} USD`;
+  }
+  
   const currencyButton = document.getElementById('currency-button');
   currencyButton.innerHTML = 'Howdy y\'all';
   currencyButton.disabled = true;
