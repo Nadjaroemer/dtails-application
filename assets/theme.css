@@ -7019,3 +7019,7 @@ hr {
 .sale-sign > p {
   color: red
 }
+
+.currency-select {
+  margin-right: 4px;
+}
