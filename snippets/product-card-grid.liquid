@@ -12,7 +12,6 @@
   <a class="grid-view-item__link grid-view-item__image-container full-width-link" href="{{ product.url }}">
     <span class="visually-hidden">{{ product.title }}</span>
   </a>
-  <!-- <script>console.log({{ product | json }});</script> -->
 
   {%- assign preview_image = product.featured_media.preview_image -%}
   {%- assign img_url = preview_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
@@ -34,7 +33,7 @@
 
     {%- if product.price > 60000 -%}
       <div class="sale-sign">
-        <p>SALE</p>
+        <p>Sale</p>
       </div>
     {%- endif -%}
 

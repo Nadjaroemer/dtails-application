@@ -7014,11 +7014,14 @@ hr {
   position: absolute;
   bottom: 0;
   z-index: 20;
-  padding-left: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #EB5353;
 }
 
 .sale-sign > p {
-  color: red
+  color: white;
+  
 }
 
 .currency-select {
