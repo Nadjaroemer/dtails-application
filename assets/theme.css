@@ -7009,3 +7009,13 @@ hr {
 .secondary-image-overlay:hover {
   opacity: 1.0;
 }
+.sale-sign {
+  position: absolute;
+  bottom: 0;
+  z-index: 20;
+  padding-left: 5px;
+}
+
+.sale-sign > p {
+  color: red
+}
