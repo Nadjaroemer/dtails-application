@@ -7009,6 +7009,7 @@ hr {
 .secondary-image-overlay:hover {
   opacity: 1.0;
 }
+
 .sale-sign {
   position: absolute;
   bottom: 0;
@@ -7022,4 +7023,12 @@ hr {
 
 .currency-select {
   margin-right: 4px;
+}
+
+#currency-button {
+  margin-right: 4px;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: none;
+  border: 1px solid lightgrey;
 }
