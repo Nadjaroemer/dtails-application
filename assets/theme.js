@@ -9701,7 +9701,8 @@ document.getElementById('currency-button').addEventListener('click', async () =>
     const text = element.innerHTML;
     const price = text.split('DKK');
     const convertedPrice = parseInt(price[0]) * dkkToUsdConversionRate;
-    element.innerHTML = `${convertedPrice} USD`;
+    const convertedPriceWithTwoDecimals = convertedPrice.toFixed(2);
+    element.innerHTML = `${convertedPriceWithTwoDecimals} USD`;
   }
   
   const currencyButton = document.getElementById('currency-button');
