@@ -114,7 +114,10 @@
                 </div>
               {% endif %}
             </div>
-            <button id="currency-button">Change to USD</button>
+            <select name="currencies" id="currency-selector">
+              <option value="DKK">DKK</option>
+              <option value="USD">USD</option>
+            </select>
             <div class="filters-toolbar__item filters-toolbar__item--count">
               <span class="filters-toolbar__product-count">{{ 'collections.general.items_with_count' | t: count: collection.products_count }}</span>
             </div>

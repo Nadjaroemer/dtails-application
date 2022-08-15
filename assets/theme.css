@@ -7024,14 +7024,6 @@ hr {
   
 }
 
-.currency-select {
-  margin-right: 4px;
-}
-
-#currency-button {
-  margin-right: 4px;
-  background-color: white;
-  border-radius: 4px;
-  box-shadow: none;
-  border: 1px solid lightgrey;
+#currency-selector {
+  margin: 0 10px;
 }

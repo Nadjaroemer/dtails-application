@@ -9686,17 +9686,16 @@ function removeImageLoadingAnimation(image) {
   }
 }
 
+// Currency selector
 const regularPriceElements = document.getElementsByClassName("price-item price-item--regular");
+const regularPriceElementsArray = [...regularPriceElements].filter((element) => element.nodeName === 'SPAN');
 const productPrices = [];
 
-for (const element of regularPriceElements) {
-  // Skip the 'S' elements that have same class name
-  if (element.nodeName === "S") {
-    continue;
-  }
+for (const element of regularPriceElementsArray) {
   const text = element.innerHTML;
   const price = text.split('DKK');
-  const convertedPrice = parseInt(price[0])
+
+  const convertedPrice = parseFloat(price[0]).toFixed(2);
   productPrices.push(convertedPrice);
 };
 
@@ -9706,18 +9705,21 @@ const getDkkToUsdConversionRate = async () => {
   return resultJson.conversion_rates['USD'];
 }
 
-document.getElementById('currency-button').addEventListener('click', async () => {
-  const dkkToUsdConversionRate = await getDkkToUsdConversionRate();
-
-  for (const element of regularPriceElements) {    
-    const text = element.innerHTML;
-    const price = text.split('DKK');
-    const convertedPrice = parseInt(price[0]) * dkkToUsdConversionRate;
-    const convertedPriceWithTwoDecimals = convertedPrice.toFixed(2);
-    element.innerHTML = `${convertedPriceWithTwoDecimals} USD`;
-  }
+document.getElementById('currency-selector').addEventListener('change', async (event) => {
+  const selectedCurrency = event.target.value;
   
-  const currencyButton = document.getElementById('currency-button');
-  currencyButton.innerHTML = 'Howdy y\'all';
-  currencyButton.disabled = true;
+  if (selectedCurrency === 'USD') {
+    const dkkToUsdConversionRate = await getDkkToUsdConversionRate();
+    regularPriceElementsArray.forEach((element, index) => {
+      const dkkPrice = productPrices[index];
+      const convertedPrice = dkkPrice * dkkToUsdConversionRate;
+      const convertedPriceWithTwoDecimals = convertedPrice.toFixed(2);
+      element.innerHTML = `${convertedPriceWithTwoDecimals} USD`;
+    });
+  } else {
+    regularPriceElementsArray.forEach((element, index) => {
+      const dkkPrice = productPrices[index];
+      element.innerHTML = `${dkkPrice} DKK`;
+    });
+  }
 });
