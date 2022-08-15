@@ -9686,6 +9686,20 @@ function removeImageLoadingAnimation(image) {
   }
 }
 
+const regularPriceElements = document.getElementsByClassName("price-item price-item--regular");
+const productPrices = [];
+
+for (const element of regularPriceElements) {
+  // Skip the 'S' elements that have same class name
+  if (element.nodeName === "S") {
+    continue;
+  }
+  const text = element.innerHTML;
+  const price = text.split('DKK');
+  const convertedPrice = parseInt(price[0])
+  productPrices.push(convertedPrice);
+};
+
 const getDkkToUsdConversionRate = async () => {
   const result = await fetch(' https://v6.exchangerate-api.com/v6/9ebc166499de8a6cb74eaaf6/latest/DKK');
   const resultJson = await result.json();
@@ -9693,11 +9707,9 @@ const getDkkToUsdConversionRate = async () => {
 }
 
 document.getElementById('currency-button').addEventListener('click', async () => {
-  const priceElements = document.getElementsByClassName("price-item price-item--regular");
-
   const dkkToUsdConversionRate = await getDkkToUsdConversionRate();
 
-  for (const element of priceElements) {    
+  for (const element of regularPriceElements) {    
     const text = element.innerHTML;
     const price = text.split('DKK');
     const convertedPrice = parseInt(price[0]) * dkkToUsdConversionRate;
