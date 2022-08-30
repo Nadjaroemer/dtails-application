@@ -21,13 +21,16 @@
       {%- assign secondary_image = product.images[1] -%}
       {%- assign secondary_img_url = secondary_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
         <div class="secondary-image-overlay">
-          <img class="grid-view-item__image lazyload"
+          <a href="{{ product.url }}">
+            <span class="visually-hidden">{{ product.title }}</span>
+            <img class="grid-view-item__image lazyload"
             alt="{{ preview_image.alt }}"
             data-src="{{ secondary_img_url }}"
             data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
             data-aspectratio="{{ preview_image.aspect_ratio }}"
             data-sizes="auto"
             data-image>
+          </a>
       </div>
     {%- endif -%}
 
