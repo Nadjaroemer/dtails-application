@@ -9689,14 +9689,11 @@ function removeImageLoadingAnimation(image) {
 // Currency selector
 const regularPriceElements = document.getElementsByClassName("price-item price-item--regular");
 const regularPriceElementsArray = [...regularPriceElements].filter((element) => element.nodeName === 'SPAN');
-const productPrices = [];
 
 for (const element of regularPriceElementsArray) {
   const text = element.innerHTML;
   const price = text.split('DKK');
-
-  const convertedPrice = parseFloat(price[0]).toFixed(2);
-  productPrices.push(convertedPrice);
+  element.dataset.price = price[0].trim();
 };
 
 const getDkkToUsdConversionRate = async () => {
@@ -9710,16 +9707,14 @@ document.getElementById('currency-selector').addEventListener('change', async (e
   
   if (selectedCurrency === 'USD') {
     const dkkToUsdConversionRate = await getDkkToUsdConversionRate();
-    regularPriceElementsArray.forEach((element, index) => {
-      const dkkPrice = productPrices[index];
-      const convertedPrice = dkkPrice * dkkToUsdConversionRate;
-      const convertedPriceWithTwoDecimals = convertedPrice.toFixed(2);
-      element.innerHTML = `${convertedPriceWithTwoDecimals} USD`;
-    });
+    for (const element of regularPriceElementsArray) {
+      const usdPrice = parseFloat(element.dataset.price) * dkkToUsdConversionRate;
+      const formattedUsdPrice = usdPrice.toFixed(2).replace('.', ',');
+      element.innerHTML = `${formattedUsdPrice} USD`
+    }
   } else {
-    regularPriceElementsArray.forEach((element, index) => {
-      const dkkPrice = productPrices[index];
-      element.innerHTML = `${dkkPrice} DKK`;
-    });
+    for (const element of regularPriceElementsArray) {
+      element.innerHTML = `${element.dataset.price} DKK`;
+    }
   }
 });
